@@ -8,6 +8,7 @@
   "dependencies": {
     "cookie-parser": "~1.4.3",
     "csv": "^5.3.2",
+    "csv-parser": "^2.3.2",
     "debug": "~2.6.9",
     "eslint": "^7.1.0",
     "eslint-config-airbnb-base": "^14.1.0",
