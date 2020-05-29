@@ -35,6 +35,7 @@ module.exports = {
   getRiders({ endStationIds = [], endDate = 'yyyy-mm-dd' }) {
     const results = this.getTrips().filter((e) => endStationIds.includes(e.endStationId)
      && e.endTime.slice(0, 10) === endDate);
+    // OPTIMIZE : Can try using switch case here.
     const result = results.reduce((obj, item) => {
       if (item.age > 0 && item.age <= 20) {
         obj['0-20']++;

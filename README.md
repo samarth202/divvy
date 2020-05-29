@@ -26,11 +26,17 @@ git clone repo-url
 ```bash
 npm i
 ```
-
-#### Starting the server locally:
+### Starting the server locally (on PORT 3000)
+#### via nodeJS:
 
 ```bash
 npm start
+```
+
+#### via Docker:
+Grant execute access to build script using chmod, then :
+```bash
+./build.sh
 ```
 
 #### Running tests locally:
@@ -38,6 +44,7 @@ npm start
 ```bash
 npm run test
 ```
+
 
 
 ## Endpoints
