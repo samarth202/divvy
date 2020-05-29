@@ -1,14 +1,14 @@
 const csv = require('csv-parser');
 const fs = require('fs');
 
-const allTrips = [];
+const loadedTrips = [];
 let loaded = false;
 const CURRENT_YEAR = new Date().getFullYear();
 
 fs.createReadStream(`${__dirname}/../config/Divvy_Trips_2019_Q2.csv`)
   .pipe(csv())
   .on('data', (data) => {
-    allTrips.push({
+    loadedTrips.push({
       startTime: data['01 - Rental Details Local Start Time'],
       endTime: data['01 - Rental Details Local End Time'],
       startStationId: data['03 - Rental Start Station ID'],
@@ -24,8 +24,16 @@ fs.createReadStream(`${__dirname}/../config/Divvy_Trips_2019_Q2.csv`)
 
 
 module.exports = {
+  getTrips() {
+    if (loaded) {
+      return loadedTrips;
+    }
+    throw new Error('Trips not loaded to memory yet, Please wait and try again');
+  },
+
+
   getRiders({ endStationIds = [], endDate = 'yyyy-mm-dd' }) {
-    const results = allTrips.filter((e) => endStationIds.includes(e.endStationId)
+    const results = this.getTrips().filter((e) => endStationIds.includes(e.endStationId)
      && e.endTime.slice(0, 10) === endDate);
     const result = results.reduce((obj, item) => {
       if (item.age > 0 && item.age <= 20) {
@@ -54,8 +62,19 @@ module.exports = {
     return result;
   },
 
-  getLast20Trips({ endStationIds = [], endDate = 'yyyy-mm-dd' }) {
 
+  getLastNTrips({ endStationIds = [], endDate = 'yyyy-mm-dd', n = 20 }) {
+    const trips = {};
+    endStationIds.forEach((id) => {
+      const stationTrips = this.getTrips().filter(
+        (e) => e.endStationId === id && e.endTime.slice(0, 10) === endDate,
+      );
+
+      trips[id] = stationTrips.sort(
+        (a, b) => new Date(b.endTime) - new Date(a.endTime),
+      ).slice(0, n);
+    });
+
+    return trips;
   },
 };
-// 0-20,21-30,31-40,41-50,51+, unknown
