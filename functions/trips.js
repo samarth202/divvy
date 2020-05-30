@@ -4,24 +4,30 @@ const fs = require('fs');
 const loadedTrips = [];
 let loaded = false;
 const CURRENT_YEAR = new Date().getFullYear();
-
-console.log('Please wait while the dataset is being loaded to memory...');
-fs.createReadStream(`${__dirname}/../config/Divvy_Trips_2019_Q2.csv`)
-  .pipe(csv())
-  .on('data', (data) => {
-    loadedTrips.push({
-      startTime: data['01 - Rental Details Local Start Time'],
-      endTime: data['01 - Rental Details Local End Time'],
-      startStationId: data['03 - Rental Start Station ID'],
-      endStationId: data['02 - Rental End Station ID'],
-      birthYear: data['05 - Member Details Member Birthday Year'],
-      age: CURRENT_YEAR - data['05 - Member Details Member Birthday Year'],
-    });
-  })
-  .on('end', () => {
-    console.log('CSV loaded succesfully');
-    loaded = true;
-  });
+const CSV_PATH = `${__dirname}/../config/Divvy_Trips_2019_Q2.csv`;
+try {
+  if (fs.existsSync(CSV_PATH)) {
+    console.log('Please wait while the dataset is being loaded to memory...');
+    fs.createReadStream(CSV_PATH)
+      .pipe(csv())
+      .on('data', (data) => {
+        loadedTrips.push({
+          startTime: data['01 - Rental Details Local Start Time'],
+          endTime: data['01 - Rental Details Local End Time'],
+          startStationId: data['03 - Rental Start Station ID'],
+          endStationId: data['02 - Rental End Station ID'],
+          birthYear: data['05 - Member Details Member Birthday Year'],
+          age: CURRENT_YEAR - data['05 - Member Details Member Birthday Year'],
+        });
+      })
+      .on('end', () => {
+        console.log('CSV loaded succesfully');
+        loaded = true;
+      });
+  }
+} catch (err) {
+  console.error('Error while reading CSV', err.message);
+}
 
 
 module.exports = {
