@@ -25,7 +25,7 @@ git lfs pull
 #### Clone the repo and make it yours:
 
 ```bash
-git clone git@github.com:samarth202/divvy.git
+git clone https://github.com/samarth202/divvy.git
 cd divvy
 ```
 
@@ -51,6 +51,11 @@ npm run start-multicore
 Grant execute access to build script using chmod, then :
 ```bash
 ./build.sh
+```
+
+To stop container :
+```bash
+docker stop divvy-express-app
 ```
 
 #### Running tests locally:
