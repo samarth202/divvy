@@ -24,6 +24,8 @@ try {
         console.log('CSV loaded succesfully');
         loaded = true;
       });
+  } else {
+    console.error(`${CSV_PATH}, not found.`);
   }
 } catch (err) {
   console.error('Error while reading CSV', err.message);
