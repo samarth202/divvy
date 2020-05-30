@@ -1,5 +1,12 @@
 # NodeJS Back-End for the Chicago Divvy Bike Rental platform using the Divvy API and provided trip data.
 
+## NOTE:
+This repo requires LFS installed in the machine, in order to pull the 'Divvy_Trips_2019_Q2.csv' from ./config/Divvy_Trips_2019_Q2.csv
+
+```bash
+brew install git-lfs
+git lfs pull
+```
 
 ## Endpoint features:
 
@@ -18,7 +25,8 @@
 #### Clone the repo and make it yours:
 
 ```bash
-git clone repo-url
+git clone git@github.com:samarth202/divvy.git
+cd divvy
 ```
 
 #### Install dependencies:
@@ -33,13 +41,13 @@ npm i
 npm start
 ```
 
-#### Mutli-Core via nodeJS using cluster:
+#### OR mutli-Core via nodeJS using cluster:
 Note: I ran this on my multi core MacBookPro, The app drove my CPU fans to full speed because the app loaded the trip dataset on booting up, ie. NodeJS loads the dataset n times altogether (n = no. of cores). I recommend running one copy of the app in a load balanced distributed environment for a more stable behaviour.
 ```bash
 npm run start-multicore
 ```
 
-#### via Docker:
+#### OR via Docker:
 Grant execute access to build script using chmod, then :
 ```bash
 ./build.sh
@@ -50,8 +58,6 @@ Grant execute access to build script using chmod, then :
 ```bash
 npm run test
 ```
-
-
 
 ## Endpoints
 #### Get Station by ID
@@ -83,5 +89,3 @@ curl --location --request POST 'localhost:3000/v1/trips/query/stations/end/last?
     "endDate": "2019-04-01"
 }'
 ```
-
-

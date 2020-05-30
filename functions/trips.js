@@ -5,6 +5,7 @@ const loadedTrips = [];
 let loaded = false;
 const CURRENT_YEAR = new Date().getFullYear();
 
+console.log('Please wait while the dataset is being loaded to memory...');
 fs.createReadStream(`${__dirname}/../config/Divvy_Trips_2019_Q2.csv`)
   .pipe(csv())
   .on('data', (data) => {
