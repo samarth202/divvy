@@ -1,3 +1,4 @@
 {
-    "stationsUrl": "https://gbfs.divvybikes.com/gbfs/en/station_information.json"
+    "stationsUrl": "https://gbfs.divvybikes.com/gbfs/en/station_information.json",
+    "secret": "keyboard-cat"
 }

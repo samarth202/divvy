@@ -9,7 +9,7 @@
 
 ## Additional features
 
- - API Authorization
+ - JWT API Authorization
  - Test cases
  - Script to containerize deployment
 
@@ -33,6 +33,12 @@ npm i
 npm start
 ```
 
+#### Mutli-Core via nodeJS using cluster:
+Note: I ran this on my multi core MacBookPro, The app drove my CPU fans to full speed because the app loaded the trip dataset on booting up, ie. NodeJS loads the dataset n times altogether (n = no. of cores). I recommend running one copy of the app in a load balanced distributed environment for a more stable behaviour.
+```bash
+npm run start-multicore
+```
+
 #### via Docker:
 Grant execute access to build script using chmod, then :
 ```bash
@@ -50,16 +56,17 @@ npm run test
 ## Endpoints
 #### Get Station by ID
 ```bash
-curl --location --request GET 'localhost:3000/v1/stations/56'
+curl --location --request GET 'localhost:3000/v1/stations/56' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaXZ2eSIsIm5hbWUiOiJ0ZXN0In0.VeWz823FdZY4X9CM0Zq_czLj14m5TKXB_HxGyGpySxc'
 ```
 #### Get age distribution by end-station ID
 ```bash
 curl --location --request POST 'localhost:3000/v1/trips/query/stations/end/riders/age' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaXZ2eSIsIm5hbWUiOiJ0ZXN0In0.VeWz823FdZY4X9CM0Zq_czLj14m5TKXB_HxGyGpySxc' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "endStationIds": [
-        "56",
-        "59"
+        "56"
     ],
     "endDate": "2019-04-01"
 }'
@@ -67,11 +74,11 @@ curl --location --request POST 'localhost:3000/v1/trips/query/stations/end/rider
 #### Get Last N trips by end-stationId
 ```bash
 curl --location --request POST 'localhost:3000/v1/trips/query/stations/end/last?n=20' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaXZ2eSIsIm5hbWUiOiJ0ZXN0In0.VeWz823FdZY4X9CM0Zq_czLj14m5TKXB_HxGyGpySxc' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "endStationIds": [
-        "56",
-        "59"
+        "56"
     ],
     "endDate": "2019-04-01"
 }'
