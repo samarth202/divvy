@@ -17,7 +17,7 @@ try {
           startStationId: data['03 - Rental Start Station ID'],
           endStationId: data['02 - Rental End Station ID'],
           birthYear: data['05 - Member Details Member Birthday Year'],
-          age: CURRENT_YEAR - data['05 - Member Details Member Birthday Year'],
+          age: CURRENT_YEAR - (data['05 - Member Details Member Birthday Year'] || NaN),
         });
       })
       .on('end', () => {
@@ -56,7 +56,7 @@ module.exports = {
         obj['41-50']++;
       } else if (item.age > 51) {
         obj['51+']++;
-      } else if (item.age.isNaN) {
+      } else if (isNaN(item.age)) {
         obj.unknown++;
       }
       return obj;
