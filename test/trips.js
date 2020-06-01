@@ -38,8 +38,8 @@ describe('functions/stations', () => {
       && result['21-30'] === 13
       && result['31-40'] === 19
       && result['41-50'] === 5
-      && result['51+'] === 3
-      && result.unknown === 0, true,
+      && result['51+'] === 2
+      && result.unknown === 1, true,
     );
   }).timeout(12000);
 
