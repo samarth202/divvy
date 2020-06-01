@@ -81,6 +81,16 @@ curl --location --request POST 'localhost:3000/v1/trips/query/stations/end/rider
     ],
     "endDate": "2019-04-01"
 }'
+
+
+# {
+#     "0-20": 0,
+#     "21-30": 13,
+#     "31-40": 19,
+#     "41-50": 5,
+#     "51+": 2,
+#     "unknown": 1
+# }
 ```
 #### Get Last N trips by end-stationId
 ```bash
@@ -93,4 +103,35 @@ curl --location --request POST 'localhost:3000/v1/trips/query/stations/end/last?
     ],
     "endDate": "2019-04-01"
 }'
+
+# {
+#     "56": [
+#         {
+#             "startTime": "2019-04-01 21:51:05",
+#             "endTime": "2019-04-01 22:00:26",
+#             "startStationId": "110",
+#             "endStationId": "56",
+#             "birthYear": "1975",
+#             "age": 45
+#         },
+#         {
+#             "startTime": "2019-04-01 21:15:44",
+#             "endTime": "2019-04-01 21:18:08",
+#             "startStationId": "133",
+#             "endStationId": "56",
+#             "birthYear": "1986",
+#             "age": 34
+#         },
+#         {
+#             "startTime": "2019-04-01 19:57:20",
+#             "endTime": "2019-04-01 20:04:02",
+#             "startStationId": "47",
+#             "endStationId": "56",
+#             "birthYear": "1980",
+#             "age": 40
+#         },
+#         ...
+#     ]
+# }
+
 ```
