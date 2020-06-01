@@ -1,7 +1,7 @@
 # NodeJS Back-End for the Chicago Divvy Bike Rental platform using the Divvy API and provided trip data.
 
 ## NOTE:
-This repo requires LFS installed in the machine, in order to pull the 'Divvy_Trips_2019_Q2.csv' from ./config/Divvy_Trips_2019_Q2.csv
+This repo requires LFS installed in the machine, in order to pull the 'Divvy_Trips_2019_Q2.csv' in ./config/Divvy_Trips_2019_Q2.csv
 
 ```bash
 brew install git-lfs
