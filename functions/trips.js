@@ -75,12 +75,13 @@ module.exports = {
 
   getLastNTrips({ endStationIds = [], endDate = 'yyyy-mm-dd', n = 20 }) {
     const trips = {};
-    endStationIds.forEach((id) => {
-      const stationTrips = this.getTrips().filter(
-        (e) => e.endStationId === id && e.endTime.slice(0, 10) === endDate,
-      );
 
-      trips[id] = stationTrips.sort(
+    const stationTrips = this.getTrips().filter(
+      (e) => endStationIds.includes(e.endStationId) && e.endTime.slice(0, 10) === endDate,
+    );
+
+    endStationIds.forEach((id) => {
+      trips[id] = stationTrips.filter((e) => e.endStationId === id).sort(
         (a, b) => new Date(b.endTime) - new Date(a.endTime),
       ).slice(0, n);
     });
